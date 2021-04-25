@@ -16,6 +16,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.youcode.ecomApp.entities.UserEntity;
+import com.youcode.ecomApp.entities.UserRole;
+import com.youcode.ecomApp.repositories.RoleRepository;
 import com.youcode.ecomApp.repositories.UserRepository;
 import com.youcode.ecomApp.shared.Utils;
 
@@ -25,6 +27,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private RoleRepository roleRepository;
 
 	@Autowired
 	private Utils utils;
@@ -33,9 +38,11 @@ public class UserServiceImpl implements UserService {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Override
-	public UserEntity createUser(UserEntity userEntity) {
+	public UserEntity createUser(UserEntity userEntity, String title) {
 
 		UserEntity checkUser = userRepository.findByEmail(userEntity.getEmail().toLowerCase());
+		
+		UserRole userRole = roleRepository.findByTitle(title);
 
 		if (checkUser != null) {
 			throw new RuntimeException("user already exists");
@@ -45,11 +52,13 @@ public class UserServiceImpl implements UserService {
 		
 		userEntity.setPassword(bCryptPasswordEncoder.encode(userEntity.getPassword()));
 
-		userEntity.setUserId(utils.generateUserId(32));
-
-		UserEntity newUserEntity = userRepository.save(userEntity);
-
-		return newUserEntity;
+		userEntity.setUserId(utils.generateUserId(32));	
+		
+		userRole.addUser(userEntity);
+		
+		roleRepository.save(userRole);
+		
+		return userEntity;
 	}
 
 	@Override
@@ -70,6 +79,9 @@ public class UserServiceImpl implements UserService {
 
 		if (userEntity == null)
 			throw new UsernameNotFoundException(email);
+		
+		if (!userEntity.isEmailVerificationStatus())
+			throw new RuntimeException("account disabled");
 
 		return new User(userEntity.getEmail().toLowerCase(), userEntity.getPassword(), new ArrayList<>());
 	}
@@ -103,7 +115,7 @@ public class UserServiceImpl implements UserService {
 
 		UserEntity updatedUser = userRepository.findByUserId(id);
 
-		if (userEntity == null)
+		if (updatedUser == null)
 			throw new UsernameNotFoundException(id);
 
 		updatedUser.setFirstName(userEntity.getFirstName());
@@ -129,5 +141,7 @@ public class UserServiceImpl implements UserService {
 
 		return users;
 	}
+
+	
 
 }

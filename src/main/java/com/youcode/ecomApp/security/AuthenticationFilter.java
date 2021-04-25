@@ -42,7 +42,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 			UserLoginRequest creds = new ObjectMapper().readValue(request.getInputStream(), UserLoginRequest.class);
 			
 			return authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(creds.getEmail(), creds.getPassword(), new ArrayList<>()));
+					new UsernamePasswordAuthenticationToken(creds.getEmail().toLowerCase(), creds.getPassword(), new ArrayList<>()));
 			
 		} catch (Exception e) {
 			throw new RuntimeException(e);

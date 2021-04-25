@@ -22,7 +22,7 @@ import com.youcode.ecomApp.services.UserService;
 
 @RestController
 @RequestMapping("/api")
-public class UserResource {
+public class UserController {
 
 	@Autowired
 	private UserService userService;
@@ -30,9 +30,9 @@ public class UserResource {
 	@PostMapping("/users")
 	public ResponseEntity<UserEntity> registerUser(@RequestBody @Valid UserEntity userEntity) {
 
-		userService.createUser(userEntity);
+		UserEntity createdUser = userService.createUser(userEntity, "client");
 		
-		return new ResponseEntity<>(userEntity,HttpStatus.CREATED);
+		return new ResponseEntity<>(createdUser,HttpStatus.CREATED);
 
 	}
 

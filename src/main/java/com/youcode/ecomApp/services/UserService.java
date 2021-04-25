@@ -9,7 +9,7 @@ import com.youcode.ecomApp.entities.UserEntity;
 
 public interface UserService extends UserDetailsService {
 	
-	UserEntity createUser(UserEntity userEntity);
+	UserEntity createUser(UserEntity userEntity, String title);
 	
 	UserEntity updateUser(String id, UserEntity userEntity);
 	
@@ -20,6 +20,8 @@ public interface UserService extends UserDetailsService {
 	UserEntity getByUserId(String userId);
 	
 	void deleteById(String userId);
+
+	
 
 	
 	
