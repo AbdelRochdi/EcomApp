@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -45,7 +47,7 @@ public class UserServiceImpl implements UserService {
 		UserRole userRole = roleRepository.findByTitle(title);
 
 		if (checkUser != null) {
-			throw new RuntimeException("user already exists");
+			throw new IllegalStateException("user already exists");
 		}
 
 		userEntity.setEmail(userEntity.getEmail().toLowerCase());
@@ -81,9 +83,12 @@ public class UserServiceImpl implements UserService {
 			throw new UsernameNotFoundException(email);
 		
 		if (!userEntity.isEmailVerificationStatus())
-			throw new RuntimeException("account disabled");
+			throw new IllegalStateException("account disabled");
+		
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		authorities.add(new SimpleGrantedAuthority(userEntity.getUserRole().getTitle()));
 
-		return new User(userEntity.getEmail().toLowerCase(), userEntity.getPassword(), new ArrayList<>());
+		return new User(userEntity.getEmail().toLowerCase(), userEntity.getPassword(), authorities);
 	}
 
 	@Override

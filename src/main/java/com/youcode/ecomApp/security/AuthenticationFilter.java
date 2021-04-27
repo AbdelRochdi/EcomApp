@@ -1,7 +1,6 @@
-package com.youcode.ecomApp.security;
+ package com.youcode.ecomApp.security;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.FilterChain;
@@ -42,7 +41,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 			UserLoginRequest creds = new ObjectMapper().readValue(request.getInputStream(), UserLoginRequest.class);
 			
 			return authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(creds.getEmail().toLowerCase(), creds.getPassword(), new ArrayList<>()));
+					new UsernamePasswordAuthenticationToken(creds.getEmail().toLowerCase(), creds.getPassword()));
 			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -58,6 +57,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 		
 		String token = Jwts.builder()
 						.setSubject(username)
+						.claim("authorities", authResult.getAuthorities())
 						.setExpiration(new Date(System.currentTimeMillis()+SecurityConstants.EXPIRATION_TIME))
 						.signWith(SignatureAlgorithm.HS512, SecurityConstants.TOKEN_SECRET)
 						.compact();

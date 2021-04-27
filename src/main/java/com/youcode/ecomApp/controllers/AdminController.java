@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -27,15 +28,17 @@ public class AdminController {
 	private AdminService adminService;
 	
 	@PostMapping("/admin")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<UserEntity> registerAdmin(@RequestBody @Valid UserEntity userEntity) {
 
-		userService.createUser(userEntity, "admin");
+		userService.createUser(userEntity, "ROLE_ADMIN");
 		
 		return new ResponseEntity<>(userEntity,HttpStatus.CREATED);
 
 	}
 	
 	@PutMapping("/admin/{userId}")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<UserEntity> disableUser(@PathVariable String userId) {
 
 		UserEntity userEntity =  adminService.disableUser(userId);

@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,13 +31,14 @@ public class UserController {
 	@PostMapping("/users")
 	public ResponseEntity<UserEntity> registerUser(@RequestBody @Valid UserEntity userEntity) {
 
-		UserEntity createdUser = userService.createUser(userEntity, "client");
+		UserEntity createdUser = userService.createUser(userEntity, "ROLE_CLIENT");
 		
 		return new ResponseEntity<>(createdUser,HttpStatus.CREATED);
 
 	}
 
 	@GetMapping("/users")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public  ResponseEntity<List<UserEntity>> getAllUsers(@RequestParam(value = "page", defaultValue = "1") int page, @RequestParam(value = "limit", defaultValue = "15") int limit ) {
 				
 		List<UserEntity> users = userService.getUsers(page, limit);
@@ -46,6 +48,7 @@ public class UserController {
 	}
 
 	@GetMapping("/users/{userId}")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<UserEntity> getUser(@PathVariable String userId) {
 		 
 		UserEntity userEntity = userService.getByUserId(userId);
@@ -54,6 +57,7 @@ public class UserController {
 	}
 
 	@PutMapping("/users/{userId}") 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<UserEntity> updateEcomUser(@PathVariable String userId, @RequestBody UserEntity userEntity) {
 		
 		UserEntity updatedUser = userService.updateUser(userId, userEntity);
@@ -61,7 +65,17 @@ public class UserController {
 		return new ResponseEntity<>(updatedUser,HttpStatus.ACCEPTED);
 	}
 	
+	@PutMapping("/user") 
+	@PreAuthorize("hasRole('ROLE_CLIENT')")
+	public ResponseEntity<UserEntity> updateUser(@PathVariable String userId, @RequestBody UserEntity userEntity) {
+		
+		UserEntity updatedUser = userService.updateUser(userId, userEntity);
+		
+		return new ResponseEntity<>(updatedUser,HttpStatus.ACCEPTED);
+	}
+	
 	@DeleteMapping("/users/{userId}")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<Object> deleteEcomUser(@PathVariable String userId) {
 		
 		userService.deleteById(userId);
