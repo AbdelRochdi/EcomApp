@@ -1,5 +1,6 @@
 package com.youcode.ecomApp.controllers;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class AdminController {
 	
 	@PostMapping("/admin")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public ResponseEntity<UserEntity> registerAdmin(@RequestBody @Valid UserEntity userEntity) {
+	public ResponseEntity<UserEntity> registerAdmin(@RequestBody @Valid UserEntity userEntity) throws MessagingException {
 
 		userService.createUser(userEntity, "ROLE_ADMIN");
 		

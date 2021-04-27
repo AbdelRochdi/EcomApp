@@ -48,8 +48,6 @@ public class UserEntity implements Serializable {
 	@NotBlank
 	@Size(min = 8)
 	private String password;
-	@Column(nullable = true)
-	private String emailVerificationToken;
 	@Column(nullable = false)
 	private boolean emailVerificationStatus = false;
 	
@@ -99,12 +97,6 @@ public class UserEntity implements Serializable {
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	public String getEmailVerificationToken() {
-		return emailVerificationToken;
-	}
-	public void setEmailVerificationToken(String emailVerificationToken) {
-		this.emailVerificationToken = emailVerificationToken;
 	}
 	public boolean isEmailVerificationStatus() {
 		return emailVerificationStatus;
