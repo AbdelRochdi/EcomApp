@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
@@ -19,13 +20,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.basma_products.basma_products.exceptions.ProduitIntrouvableException;
+import com.basma_products.basma_products.models.Category;
 import com.basma_products.basma_products.models.Products;
+import com.basma_products.basma_products.repository.CategoryRepo;
 import com.basma_products.basma_products.repository.ProductsRepository;
 import com.basma_products.basma_products.services.ProductsServiceImp;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 
 @RestController
 @RequestMapping("/products")
@@ -33,6 +37,9 @@ public class ProductController {
 	
 	@Autowired
 	ProductsRepository productsRepo;
+	
+	@Autowired
+	CategoryRepo categoryRepo;
 	
 	@Autowired
 	ProductsServiceImp productService;
@@ -70,7 +77,18 @@ public class ProductController {
     }
 	
 	@PostMapping("/addProduct")
-	public ResponseEntity<Void> addProduct(@RequestBody Products product) {
+	public ResponseEntity<Void> addProduct(@RequestBody JSONObject jproduct) {
+		
+        String nom = (String) jproduct.get("nom");
+        String categorieString = (String) jproduct.get("categorie");
+        String sousCategorieString = (String) jproduct.get("sousCategorie");
+        double prix = Double.parseDouble(String.valueOf(jproduct.get("prix")));
+        double prixAchat = Double.parseDouble(String.valueOf(jproduct.get("prixAchat")));
+        
+        Category category = categoryRepo.findByCategory(categorieString);
+        
+        Products product = new Products(nom, category, sousCategorieString, prix, prixAchat);
+
 		Products addedProduct = productsRepo.save(product);
 	
 		if (addedProduct == null) 
@@ -84,12 +102,27 @@ public class ProductController {
 						.toUri()
 						;
         return ResponseEntity.created(location).build();
+        
 	}
 	
 	
 	
 	@PutMapping("/update")
-	public ResponseEntity<Void> modifyProduct(@RequestBody Products product) {
+	public ResponseEntity<Void> modifyProduct(@RequestBody JSONObject jproduct) {
+		
+		System.out.println(jproduct);
+
+		
+		long id = Integer.parseInt((String) jproduct.get("id"));
+        String nom = (String) jproduct.get("nom");
+        String categorieString = (String) jproduct.get("categorie");
+        String sousCategorieString = (String) jproduct.get("sousCategorie");
+        double prix = Double.parseDouble((String) jproduct.get("prix"));
+        double prixAchat = Double.parseDouble((String) jproduct.get("prixAchat"));
+                
+        Category category = categoryRepo.findByCategory(categorieString);
+        
+        Products product = new Products(id, nom, category, sousCategorieString, prix, prixAchat);
 		Products addedProduct = productsRepo.save(product);
 		
 

@@ -26,88 +26,88 @@ public class ProductsRepositoryTest {
 //
 //	}
 	
+	@Test
+	void productsList() {
+		List<Products> products = productsRepo.findAll();
+		for (Products product: products) {
+			System.out.println(product.toString());
+		}
+	}
+	
 //	@Test
-//	void productsList() {
-//		List<Products> products = productsRepo.findAll();
+//	void productsByCategory() {
+//		List<Products> products = productsRepo.findByCategorie("Category2");
+//		System.out.println("#############################################");
+//
 //		for (Products product: products) {
 //			System.out.println(product.toString());
 //		}
+//		System.out.println("#############################################");
+//
 //	}
-	
-	@Test
-	void productsByCategory() {
-		List<Products> products = productsRepo.findByCategorie("Category2");
-		System.out.println("#############################################");
-
-		for (Products product: products) {
-			System.out.println(product.toString());
-		}
-		System.out.println("#############################################");
-
-	}
-	
-	@Test
-	void productsBySubCategory() {
-		List<Products> products = productsRepo.findBySousCategorie("SubCatégory3");
-		System.out.println("#############################################");
-		for (Products product: products) {
-			System.out.println(product.toString());
-		}
-		System.out.println("#############################################");
-
-	}
-	
-	@Test
-	void productsBySousCategory() {
-		
-		List<Products> productsByCat = productsRepo.findByCategorie("Category2");
-		List<Products> productsBySubCat = productsRepo.findBySousCategorie("SubCatégory3");
-
-
-		// create ArrayList list1
-        List<Long>
-            list1 = new ArrayList<>();
-        
-        for(Products product: productsByCat) {
-        	list1.add(product.getId());
-        }
-        
-  
-
-  
-        // print list 1
-        System.out.println("List1: "
-                           + list1);
-  
-        // Create ArrayList list2
-        List<Long>
-            list2 = new ArrayList<>();
-  
-  
-        for(Products product: productsBySubCat) {
-        	list2.add(product.getId());
-        }
-  
-        // print list 2
-        System.out.println("List2: "
-                           + list2);
-  
-        // Find the common elements
-        list1.retainAll(list2);
-        
-        List<Products> commonProducts = new ArrayList<>();
-        
-        for(Long productId: list1) {
-        	commonProducts.add(productsRepo.findProducts(productId));
-        }
-  
-        // print list 1
-        System.out.println("Common elements: "
-                           + commonProducts);
-    
-
-
-	}
+//	
+//	@Test
+//	void productsBySubCategory() {
+//		List<Products> products = productsRepo.findBySousCategorie("SubCatégory3");
+//		System.out.println("#############################################");
+//		for (Products product: products) {
+//			System.out.println(product.toString());
+//		}
+//		System.out.println("#############################################");
+//
+//	}
+//	
+//	@Test
+//	void productsBySousCategory() {
+//		
+//		List<Products> productsByCat = productsRepo.findByCategorie("Category2");
+//		List<Products> productsBySubCat = productsRepo.findBySousCategorie("SubCatégory3");
+//
+//
+//		// create ArrayList list1
+//        List<Long>
+//            list1 = new ArrayList<>();
+//        
+//        for(Products product: productsByCat) {
+//        	list1.add(product.getId());
+//        }
+//        
+//  
+//
+//  
+//        // print list 1
+//        System.out.println("List1: "
+//                           + list1);
+//  
+//        // Create ArrayList list2
+//        List<Long>
+//            list2 = new ArrayList<>();
+//  
+//  
+//        for(Products product: productsBySubCat) {
+//        	list2.add(product.getId());
+//        }
+//  
+//        // print list 2
+//        System.out.println("List2: "
+//                           + list2);
+//  
+//        // Find the common elements
+//        list1.retainAll(list2);
+//        
+//        List<Products> commonProducts = new ArrayList<>();
+//        
+//        for(Long productId: list1) {
+//        	commonProducts.add(productsRepo.findProducts(productId));
+//        }
+//  
+//        // print list 1
+//        System.out.println("Common elements: "
+//                           + commonProducts);
+//    
+//
+//
+//	}
 	
 	
 	

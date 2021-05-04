@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.products_Categories.demo.models.Category;
 import com.products_Categories.demo.models.Products;
 import com.products_Categories.demo.repository.CategoryRepo;
 
@@ -16,10 +17,11 @@ public class CategoryRepoTest {
 	CategoryRepo categoryRepo;
 
 	@Test
-	void productsList() {
-		List<Products> products = categoryRepo.findByCategorie("Catégory2");
-		for (Products product: products) {
-			System.out.println(product.toString());
-		}
+	void addCategory() {
+		
+		Category category = new Category("Catégory2", "This is Catégory2 Discription");
+		categoryRepo.save(category);
+		System.out.println("DOONE");
+		
 	}
 }

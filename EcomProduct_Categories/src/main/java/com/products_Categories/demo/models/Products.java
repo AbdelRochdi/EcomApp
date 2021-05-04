@@ -16,7 +16,7 @@ public class Products {
     private long id;
     private String nom;
 //    private String discription;
-    private String categorie;
+    private Category categorie;
     private String sousCategorie;
     private double prix;
 
@@ -26,7 +26,7 @@ public class Products {
 
     
 
-    public Products(long id, String nom, String categorie, String sousCategorie, double prix, double prixAchat) {
+    public Products(long id, String nom, Category categorie, String sousCategorie, double prix, double prixAchat) {
 		this.id = id;
 		this.nom = nom;
 		this.categorie = categorie;
@@ -35,7 +35,7 @@ public class Products {
 		this.prixAchat = prixAchat;
 	}
 
-	public Products(String nom, String categorie, String sousCategorie, double prix, double prixAchat) {
+	public Products(String nom, Category categorie, String sousCategorie, double prix, double prixAchat) {
 		super();
 		this.nom = nom;
 		this.categorie = categorie;
@@ -86,11 +86,11 @@ public class Products {
 		return "Products [id=" + id + ", nom=" + nom +", prix=" + prix + "]";
 	}
 
-	public String getCategorie() {
+	public Category getCategorie() {
 		return categorie;
 	}
 
-	public void setCategorie(String categorie) {
+	public void setCategorie(Category categorie) {
 		this.categorie = categorie;
 	}
 

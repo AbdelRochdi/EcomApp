@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.basma_products.basma_products.models.Category;
 import com.basma_products.basma_products.models.Products;
 
 
@@ -16,6 +17,6 @@ public interface ProductsRepository extends JpaRepository<Products, Long> {
 	Products findProducts(Long id);
 	List<Products> findByPrixGreaterThan(double prixLimit);
 	List<Products> findByNomLike(String recherche);
-	List<Products> findByCategorie(String category);
+	List<Products> findByCategorie(Category category);
 	List<Products> findBySousCategorie(String sousCategorie);
 }

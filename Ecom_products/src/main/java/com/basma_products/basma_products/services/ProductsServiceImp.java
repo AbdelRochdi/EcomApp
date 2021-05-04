@@ -9,7 +9,9 @@ import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.stereotype.Service;
 
 import com.basma_products.basma_products.exceptions.ProduitIntrouvableException;
+import com.basma_products.basma_products.models.Category;
 import com.basma_products.basma_products.models.Products;
+import com.basma_products.basma_products.repository.CategoryRepo;
 import com.basma_products.basma_products.repository.ProductsRepository;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
@@ -20,6 +22,12 @@ public class ProductsServiceImp implements ProductService {
 
 	@Autowired
 	ProductsRepository productsRepo;
+	
+	@Autowired
+	CategoryRepo catRepo;
+	
+	
+	
 
 	@Override
 	public MappingJacksonValue allProducts() {
@@ -36,7 +44,9 @@ public class ProductsServiceImp implements ProductService {
 	@Override
 
 	public MappingJacksonValue productsByCategory(String category) {
-		List<Products> products = productsRepo.findByCategorie(category);
+		
+		Category categorie = catRepo.findByCategory(category);
+		List<Products> products = productsRepo.findByCategorie(categorie);
 
 		SimpleBeanPropertyFilter myFilter = SimpleBeanPropertyFilter.serializeAllExcept("prixAchat", "id");
 		FilterProvider filtresList = new SimpleFilterProvider().addFilter("monFilterDynamique", myFilter);
@@ -49,8 +59,10 @@ public class ProductsServiceImp implements ProductService {
 	@Override
 
 	public MappingJacksonValue productsBySousCategory(String category, String sousCategorie) {
+		
+		Category categorie = catRepo.findByCategory(category);
 
-		List<Products> productsByCat = productsRepo.findByCategorie(category);
+		List<Products> productsByCat = productsRepo.findByCategorie(categorie);
 		List<Products> productsBySubCat = productsRepo.findBySousCategorie(sousCategorie);
 
 		// create ArrayList list1

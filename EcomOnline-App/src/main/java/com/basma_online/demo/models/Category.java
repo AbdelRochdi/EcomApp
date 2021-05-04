@@ -1,26 +1,20 @@
-package com.products_Categories.demo.models;
+package com.basma_online.demo.models;
 
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 
-@Entity
-@JsonFilter("monFilterDynamique")
+
 public class Category implements Externalizable {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	private long id;
-	@Column(unique = true)
+
 	private String Category;
 	private String discription;
 	

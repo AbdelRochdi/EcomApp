@@ -1,14 +1,12 @@
 package com.products_Categories.demo.repository;
 
-import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.products_Categories.demo.models.Products;
+import com.products_Categories.demo.models.Category;
 
-public interface CategoryRepo extends JpaRepository<Products, Long> {
+public interface CategoryRepo extends JpaRepository<Category, Long> {
 	
-	List<Products> findByCategorie(String categorie);
-	List<Products> findBySousCategorie(String subCategorie);
-
+	
+	
 }

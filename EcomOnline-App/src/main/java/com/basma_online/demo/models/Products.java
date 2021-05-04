@@ -1,24 +1,31 @@
 package com.basma_online.demo.models;
 
+
+import com.fasterxml.jackson.annotation.JsonFilter;
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@AllArgsConstructor
+
+
 public class Products {
-	
 
     private long id;
     private String nom;
 //    private String discription;
-    private String categorie;
+
+    private Category categorie;
     private String sousCategorie;
     private double prix;
 
     private double prixAchat;
 
     
-    public Products(long id, String nom, String categorie, String sousCategorie, double prix, double prixAchat) {
+    
+   
+
+	public Products(long id, String nom, Category categorie, String sousCategorie, double prix, double prixAchat) {
+		super();
 		this.id = id;
 		this.nom = nom;
 		this.categorie = categorie;
@@ -27,8 +34,7 @@ public class Products {
 		this.prixAchat = prixAchat;
 	}
 
-    public Products(String nom, String categorie, String sousCategorie, double prix, double prixAchat) {
-		super();
+	public Products(String nom, Category categorie, String sousCategorie, double prix, double prixAchat) {
 		this.nom = nom;
 		this.categorie = categorie;
 		this.sousCategorie = sousCategorie;
@@ -78,11 +84,11 @@ public class Products {
 		return "Products [id=" + id + ", nom=" + nom +", prix=" + prix + "]";
 	}
 
-	public String getCategorie() {
+	public Category getCategorie() {
 		return categorie;
 	}
 
-	public void setCategorie(String categorie) {
+	public void setCategorie(Category categorie) {
 		this.categorie = categorie;
 	}
 
