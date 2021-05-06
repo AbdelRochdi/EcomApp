@@ -70,6 +70,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 		
 		response.addHeader("user_id", userEntity.getUserId());
 		
+		response.getWriter().write("{\"token\":\"" + token + "\" }");
+		
 	}
 	
 	

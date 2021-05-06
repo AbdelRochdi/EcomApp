@@ -2,6 +2,7 @@ package com.youcode.ecomApp.entities;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class ConfirmationToken {
@@ -24,8 +27,10 @@ public class ConfirmationToken {
 	private LocalDateTime expiresAt;
 	private LocalDateTime confirmedAt;
 	
-	@ManyToOne
+	
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
 	@JoinColumn(nullable = false, name = "user_id")
+	@JsonIgnoreProperties("confirmationTokens")
 	private UserEntity userEntity;
 	
 	public Long getId() {

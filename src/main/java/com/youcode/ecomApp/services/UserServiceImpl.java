@@ -60,8 +60,8 @@ public class UserServiceImpl implements UserService {
 
 		if (checkUser != null) {
 			throw new IllegalStateException("user already exists");
-		}
-
+		}else {
+			
 		userEntity.setEmail(userEntity.getEmail().toLowerCase());
 		
 		userEntity.setPassword(bCryptPasswordEncoder.encode(userEntity.getPassword()));
@@ -81,13 +81,15 @@ public class UserServiceImpl implements UserService {
 		confirmationToken.setToken(token);
 		confirmationToken.setCreatedAt(LocalDateTime.now());
 		confirmationToken.setExpiresAt(LocalDateTime.now().plusDays(7));
-		confirmationToken.setUserEntity(userEntity);
 		
-		tokenService.createToken(confirmationToken);
+		userEntity.addConfirmationToken(confirmationToken);
+		
+		userRepository.save(userEntity);
 		
 		String link = "http://localhost:8080/api/users/confirm?token=" + token;
 		
 		sendEmail(userEntity, buildEmail(userEntity.getFirstName(), link));
+		}
 	
 		return userEntity;
 	}
