@@ -1,0 +1,138 @@
+.single-wrapper {
+	display: flex;
+}
+
+.showcase {
+	flex: 1.1;
+	text-align: center;
+}
+
+.product-image img {
+	width: 80%;
+}
+
+.buttons button {
+	padding: 0.8rem 8rem;
+	margin: 1rem 0.5rem;
+	border: none;
+	border-radius: 0.5rem;
+}
+
+.ptc {
+	color: white;
+	background-color: #c82333;
+	cursor: pointer;
+	outline: none;
+}
+
+.atc2 {
+	background-color: #ffc107;
+	cursor: pointer;
+	outline: none;
+}
+
+.infos {
+	flex: 1;
+	font-size: 1.5rem;
+	padding: 4rem 0 2rem;
+}
+
+.infos__title {
+	margin-bottom: 2rem;
+}
+
+.rating span {
+	color: #00a5c4;
+	margin: 0 1rem;
+}
+
+.prices {
+	border-top: 1px solid #dfdfdf;
+	width: 80%;
+	padding: 0 0 0.3rem;
+}
+
+.prices p {
+	margin: 0.5rem 0;
+}
+
+.prices p span {
+	color: red;
+	font-size: 2rem;
+}
+.prices p:first-of-type span {
+	text-decoration: line-through;
+	color: black;
+}
+
+.services {
+	display: flex;
+	text-align: center;
+	padding: 2rem 0;
+	border-bottom: 1px solid #dfdfdf;
+}
+
+.services div {
+	margin: 0 1rem;
+	color: #00a5c4;
+	width: 20%;
+}
+
+.services div i {
+	border: 1px solid #dfdfdf;
+	border-radius: 100%;
+	padding: 1.2rem 1.5rem;
+	font-size: 2rem;
+	margin: 1.5rem 0;
+}
+
+.delivery {
+	padding: 0.7rem 0;
+}
+
+.delivery p {
+	margin: 0.5rem 0;
+	font-size: 1.4rem;
+}
+
+.quantity {
+	display: flex;
+	align-items: center;
+	margin: 2.4rem 0 2rem;
+}
+
+.quantity div {
+	border: 1px solid #d8d8d8;
+	background-color: #f8f9fa;
+	padding: 0.5rem;
+}
+
+.quantity div i {
+	font-size: 1.1rem;
+}
+
+.quantity div:nth-of-type(2) {
+	padding: 0.5rem 3rem !important;
+	border-left: none;
+	border-right: none;
+}
+
+.quantity span {
+	margin-right: 1.5rem;
+}
+
+.size h4 {
+	margin-bottom: 1rem;
+}
+
+.sizes {
+	display: flex;
+}
+
+.sizes div {
+	border: 1px solid rgb(199, 194, 194);
+	margin-right: 7rem;
+	padding: 1rem;
+	font-weight: 500;
+	font-size: 1.3rem;
+}

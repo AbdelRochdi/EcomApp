@@ -1,0 +1,30 @@
+.product img{
+    width: 100%;
+}
+
+.product{
+    border: 1px solid rgb(228, 221, 221);
+    padding: 1rem 0;
+    font-size: 1.5rem;
+
+}
+
+.title{
+    font-size: 1.8rem;
+}
+
+.rating{
+    font-size: 1.3rem;
+    color: #FFC107;
+    margin: 1rem 0;
+}
+
+.atc{
+    background-color:  #FFC107 ;
+    border: none;
+    border-radius: 0.5rem;
+    outline: none;
+    padding: 0.8rem;
+    margin: 0.8rem 0;
+    cursor: pointer;
+}
