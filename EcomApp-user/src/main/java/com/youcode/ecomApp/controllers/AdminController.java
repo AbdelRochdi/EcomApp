@@ -21,7 +21,6 @@ import com.youcode.ecomApp.services.UserService;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000/")
 public class AdminController {
 
 	@Autowired
